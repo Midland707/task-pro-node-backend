@@ -9,6 +9,13 @@ const {
 
 const { getBoard, addBoard, updateBoard, removeBoard } = require("./boards");
 
+const {
+  getColumn,
+  addColumn,
+  updateColumn,
+  removeColumn,
+} = require("./columns");
+
 module.exports = {
   registerUser,
   loginUser,
@@ -21,4 +28,9 @@ module.exports = {
   addBoard,
   updateBoard,
   removeBoard,
+
+  getColumn,
+  addColumn,
+  updateColumn,
+  removeColumn,
 };
