@@ -7,6 +7,8 @@ const {
   updateUser,
 } = require("./users");
 
+const { getBoard, addBoard, updateBoard, removeBoard } = require("./boards");
+
 module.exports = {
   registerUser,
   loginUser,
@@ -14,4 +16,9 @@ module.exports = {
   logoutUser,
   updateTheme,
   updateUser,
+
+  getBoard,
+  addBoard,
+  updateBoard,
+  removeBoard,
 };
