@@ -16,6 +16,8 @@ const {
   removeColumn,
 } = require("./columns");
 
+const { getCard, addCard, updateCard, removeCard } = require("./cards");
+
 module.exports = {
   registerUser,
   loginUser,
@@ -33,4 +35,9 @@ module.exports = {
   addColumn,
   updateColumn,
   removeColumn,
+
+  getCard,
+  addCard,
+  updateCard,
+  removeCard,
 };

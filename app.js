@@ -5,6 +5,7 @@ const cors = require("cors");
 const usersRouter = require("./routes/api/users");
 const boardsRouter = require("./routes/api/boards");
 const columnsRouter = require("./routes/api/columns");
+const cardsRouter = require("./routes/api/cards");
 
 require("dotenv").config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/boards", boardsRouter);
 app.use("/columns", columnsRouter);
+app.use("/cards", cardsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });
