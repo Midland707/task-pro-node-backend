@@ -23,8 +23,9 @@ router.get(
 router.post("/logout", authenticate, usersController.logoutUser);
 
 router.patch(
-  "/theme",
-  //   auth,
+  "/themes",
+  authenticate,
+  validateBody(schemasJoiUser.updateThemeSchema),
   usersController.updateTheme
 );
 
