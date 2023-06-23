@@ -4,7 +4,6 @@ const { mongooseError } = require("../helpers");
 
 const passNameRegex = /^[a-zA-Z0-9]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-// const nameRegex = /^[a-zA-Z0-9]+$/;
 const themeList = ["light", "violet", "dark"];
 
 const userSchema = new Schema(
@@ -16,10 +15,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Set password for user"],
-      //   match: passwordRegex,
-      //   minlength: 6,
-      //   maxlength: 64,
-      //   trim: true,
     },
     email: {
       type: String,
@@ -75,15 +70,6 @@ const registerUserSchema = Joi.object({
   }),
 });
 
-//     .messages({
-//   "string.pattern.base": "{#label} can only contain Latin letters, numbers",
-//   "string.min": "{#label} must be at least {#limit} characters long",
-//   "string.max": "{#label} must not exceed {#limit} characters",
-//   "any.required": "{#label} is required",
-// })
-
-//     .options({ messages: { wrapArrays: false } });
-
 const loginUserSchema = Joi.object({
   password: Joi.string().required().messages({
     "any.required": "You must enter a password.",
@@ -93,7 +79,21 @@ const loginUserSchema = Joi.object({
   }),
 });
 
-const schemasJoiUser = { registerUserSchema, loginUserSchema };
+const updateThemeSchema = Joi.object({
+  theme: Joi.string()
+    .valid(...themeList)
+    .required()
+    .messages({
+      "any.required": "Theme is required",
+      "any.only": "Invalid theme value",
+    }),
+});
+
+const schemasJoiUser = {
+  registerUserSchema,
+  loginUserSchema,
+  updateThemeSchema,
+};
 
 module.exports = {
   User,
