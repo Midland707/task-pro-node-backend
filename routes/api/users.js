@@ -3,7 +3,7 @@ const router = express.Router();
 const usersController = require("../../controllers");
 // const { validateBody, auth, fileUpload } = require("../../middlewares");
 const { schemasJoiUser } = require("../../models");
-const { validateBody } = require("../../middlewares");
+const { validateBody, authenticate } = require("../../middlewares");
 
 router.post(
   "/register",
@@ -20,11 +20,7 @@ router.get(
   // auth,
   usersController.currentUser
 );
-router.post(
-  "/logout",
-  // auth,
-  usersController.logoutUser
-);
+router.post("/logout", authenticate, usersController.logoutUser);
 
 router.patch(
   "/theme",

@@ -1,6 +1,8 @@
 const { User } = require("../../models");
 const { HttpError } = require("../../helpers");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+const { nanoid } = require("nanoid");
+
 // var gravatar = require("gravatar");
 // const { sendToEmail } = require("../../middlewares");
 
@@ -14,14 +16,17 @@ const registerUser = async (req, res) => {
   if (user) {
     throw HttpError(409, "Email in use");
   }
-  //   const hashPassw = await bcrypt.hash(password, 10);
+  const hashPassw = await bcrypt.hash(password, 10);
   //   const verificationToken = await sendToEmail(email);
+  const verificationToken = nanoid();
+
+  avatarURL = "avatar placeholder";
   const newUser = await User.create({
     ...req.body,
     avatarURL: "placeholder",
-    // password: hashPassw,
-    // avatarURL,
-    // verificationToken,
+    password: hashPassw,
+    avatarURL,
+    verificationToken,
   });
 
   res.status(201).json({

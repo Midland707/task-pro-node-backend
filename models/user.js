@@ -39,10 +39,10 @@ const userSchema = new Schema(
       enum: themeList,
       default: "dark",
     },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, "Verify token is required"],
-    // },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
   },
   { versionKey: false, timestamps: true }
 );
