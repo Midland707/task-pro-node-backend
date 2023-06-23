@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
   //   const verificationToken = await sendToEmail(email);
   const verificationToken = nanoid();
 
-  avatarURL = "avatar placeholder";
+  avatarURL = "";
   const newUser = await User.create({
     ...req.body,
     avatarURL: "placeholder",
