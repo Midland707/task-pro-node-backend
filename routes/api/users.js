@@ -2,16 +2,17 @@ const express = require("express");
 const router = express.Router();
 const usersController = require("../../controllers");
 // const { validateBody, auth, fileUpload } = require("../../middlewares");
-// const { schemasUser } = require("../../models");
+const { schemasJoiUser } = require("../../models");
+const { validateBody, authenticate } = require("../../middlewares");
 
 router.post(
   "/register",
-  //   validateBody(schemasUser.regLogSchema),
+  validateBody(schemasJoiUser.registerUserSchema),
   usersController.registerUser
 );
 router.post(
   "/login",
-  //   validateBody(schemasUser.regLogSchema),
+  validateBody(schemasJoiUser.loginUserSchema),
   usersController.loginUser
 );
 router.get(
@@ -19,11 +20,7 @@ router.get(
   // auth,
   usersController.currentUser
 );
-router.post(
-  "/logout",
-  // auth,
-  usersController.logoutUser
-);
+router.post("/logout", authenticate, usersController.logoutUser);
 
 router.patch(
   "/theme",

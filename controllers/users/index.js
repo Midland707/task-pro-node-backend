@@ -1,3 +1,5 @@
+const { controllerWrapper } = require("../../decorators");
+
 const registerUser = require("./registerUser");
 const loginUser = require("./loginUser");
 const currentUser = require("./currentUser");
@@ -6,10 +8,10 @@ const updateTheme = require("./updateTheme");
 const updateUser = require("./updateUser");
 
 module.exports = {
-  registerUser,
-  loginUser,
-  currentUser,
-  logoutUser,
-  updateTheme,
-  updateUser,
+  registerUser: controllerWrapper(registerUser),
+  loginUser: controllerWrapper(loginUser),
+  currentUser: controllerWrapper(currentUser),
+  logoutUser: controllerWrapper(logoutUser),
+  updateTheme: controllerWrapper(updateTheme),
+  updateUser: controllerWrapper(updateUser),
 };
