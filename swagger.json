@@ -103,14 +103,8 @@
     "post": {
          "tags": ["Auth"], 
         "summary": "User logout",
-        "parameters": [
-          {
-            "type": "text",
-            "name": "token",
-            "description": "Authorization token must be included",
-            "required": true
-          }
-        ],
+        "parameters": [],
+        "description": "Authorization token must be included",
         "security": [{ "Bearer": [] }],
         "responses": {
           "204": {
@@ -128,18 +122,12 @@
         }
       }
     },
-    "/users/current": {
+    "/api/users/current": {
     "get": {
          "tags": ["User"], 
         "summary": "Get current user info",
-        "parameters": [
-          {
-            "type": "text",
-            "name": "token",
-            "description": "Authorization token must be included",
-            "required": true
-          }
-        ],
+        "parameters": [],
+        "description": "Authorization token must be included",
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -148,6 +136,31 @@
               "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CurrentUserRequest"
+              }
+            }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/theme": {
+    "patch": {
+         "tags": ["User"], 
+        "summary": "Update user`s theme",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThemeUserRequest"
               }
             }
             }
@@ -282,7 +295,26 @@
               "example": "dark"
             }
         }
-      }      
+      },   
+        "ThemeUserRequest": {
+        "type": "object",
+        "required": ["theme", "message"],
+        "properties": {
+          "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "dark"
+            },
+          "message": {
+            "type": "string",
+            "description": "message",
+            "example": "The theme has been changed. Now it's a dark theme"
+          }
+        }
+      }   
+
+
+      
     },
     "securitySchemes": {
       "Bearer": {

@@ -7,7 +7,7 @@ const { validateBody, authenticate } = require("../../middlewares");
 router.get("/current", authenticate, usersController.currentUser);
 
 router.patch(
-  "/themes",
+  "/theme",
   authenticate,
   validateBody(schemasJoiUser.updateThemeSchema),
   usersController.updateTheme
