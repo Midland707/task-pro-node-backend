@@ -15,11 +15,7 @@ router.post(
   validateBody(schemasJoiUser.loginUserSchema),
   usersController.loginUser
 );
-router.get(
-  "/current",
-  // auth,
-  usersController.currentUser
-);
+router.get("/current", authenticate, usersController.currentUser);
 router.post("/logout", authenticate, usersController.logoutUser);
 
 router.patch(
@@ -29,10 +25,6 @@ router.patch(
   usersController.updateTheme
 );
 
-router.patch(
-  "/",
-  //   auth,
-  usersController.updateUser
-);
+router.patch("/", authenticate, usersController.updateUser);
 
 module.exports = router;
