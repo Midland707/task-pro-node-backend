@@ -225,7 +225,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddBoardRequest"
+                "$ref": "#/components/schemas/BoardRequest"
               }
             }
           }
@@ -438,6 +438,7 @@
       },
         "ThemeUserRequest": {
         "type": "object",
+        "required": ["theme"],
         "properties": {
           "theme": {
               "type": "string",
@@ -494,15 +495,26 @@
           }
         }
       },
-        "AddBoardRequest": {
+        "BoardRequest": {
           "type": "object",
+          "required": ["title"],
         "properties": {
           "title": {
             "type": "string",
             "description": "Board's title",
             "example": "Board title"
+          },          
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "example": "https://cloudinary.com/icon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "background URL",
+            "example": "https://cloudinary.com/background.jpeg"
           }
-          }
+        }
       },
         "AddBoardResponse": {
           "type": "object",
@@ -533,26 +545,6 @@
               "example": "6496f88960259996ba1250a1"
             }
           }
-      },
-        "BoardRequest": {
-          "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "Board title"
-          },          
-          "icon": {
-            "type": "string",
-            "description": "Board's icon",
-            "example": "https://cloudinary.com/icon.svg"
-          },
-          "background": {
-            "type": "string",
-            "description": "background URL",
-            "example": "https://cloudinary.com/background.jpeg"
-          }
-        }
       }
       
     },
