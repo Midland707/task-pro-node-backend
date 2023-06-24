@@ -89,10 +89,29 @@ const updateThemeSchema = Joi.object({
     }),
 });
 
+const updateUserSchema = Joi.object({
+  password: Joi.string().min(6).max(64).pattern(passNameRegex).messages({
+    "string.pattern.base": "Password can only contain Latin letters, numbers",
+    "string.min": "Password must be at least {#limit} characters long",
+    "string.max": "Password must not exceed {#limit} characters",
+  }),
+  email: Joi.string().pattern(emailRegex).required().messages({
+    "string.pattern.base": "Email must be a valid email address",
+    "any.required": "Email is required",
+  }),
+  name: Joi.string().min(2).max(32).pattern(passNameRegex).required().messages({
+    "string.pattern.base": "Name can only contain Latin letters, numbers",
+    "string.min": "Name must be at least {#limit} characters long",
+    "string.max": "Name must not exceed {#limit} characters",
+    "any.required": "Name is required",
+  }),
+});
+
 const schemasJoiUser = {
   registerUserSchema,
   loginUserSchema,
   updateThemeSchema,
+  updateUserSchema,
 };
 
 module.exports = {
