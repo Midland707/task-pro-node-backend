@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Connections API",
+    "description": "Connections API for request to backend taskPro",
+    "license": {
+      "name": "URL to repository",
+      "url": "https://github.com/Midland707/task-pro-node-backend"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "https://task-pro-backend-j82b.onrender.com" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+         "tags": ["Auth"], 
+        "summary": "User registration",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name","email", "password"],
+        "properties": {
+        "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Myname"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "example": "example@gmail.com",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's id",
+              "example": "dark"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "https://cloudinary.com/avatar.jpeg"
+            }
+          }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
