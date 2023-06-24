@@ -94,6 +94,37 @@
           }
         }
       }
+    },
+        "/users/logout": {
+    "post": {
+         "tags": ["Auth"], 
+        "summary": "User logout",
+        "parameters": [
+          {
+            "type": "text",
+            "description": "Authorization token must be included"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "content": {}
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
     }
   },
   
