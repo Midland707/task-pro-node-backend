@@ -16,9 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", usersRouter);
-app.use("/boards", boardsRouter);
-app.use("/columns", columnsRouter);
-app.use("/cards", cardsRouter);
+app.use("/api/boards", boardsRouter);
+app.use("/api/columns", columnsRouter);
+app.use("/api/cards", cardsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });
