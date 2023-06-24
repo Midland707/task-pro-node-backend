@@ -24,7 +24,6 @@
          "tags": ["Auth"], 
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "",
           "required": true,
@@ -52,13 +51,54 @@
             "content": {}
           },
           "409": {
-            "description": "Provided email already exists",
+            "description": "Email in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/login": {
+    "post": {
+         "tags": ["Auth"], 
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
             "content": {}
           }
         }
       }
     }
   },
+  
+
+  
   "components": {
     "schemas": {
       "RegistrationRequest": {
@@ -103,6 +143,49 @@
               "example": "https://cloudinary.com/avatar.jpeg"
             }
           }
+      },
+        "LoginResponse": {
+        "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "description": "User's token",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTVkNjJlNjE4MzgwMzY4NTk0NDZjNCIsImlhdCI6MTY4NzYxMjMzMCwiZXhwIjoxNjg3Njk4NzMwfQ.Exk_soSUARn-t-7FDQKsiFBTutt_vc9ok9UPuTdGqBU"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "example": "example@gmail.com",
+              "format": "email"
+            },
+            "theme": {
+              "type": "string",
+              "description": "User's id",
+              "example": "dark"
+            },
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "https://cloudinary.com/avatar.jpeg"
+            }
+          }
+      },
+        "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
       }
     },
     "securitySchemes": {
