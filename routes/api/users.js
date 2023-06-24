@@ -4,18 +4,7 @@ const usersController = require("../../controllers");
 const { schemasJoiUser } = require("../../models");
 const { validateBody, authenticate } = require("../../middlewares");
 
-router.post(
-  "/register",
-  validateBody(schemasJoiUser.registerUserSchema),
-  usersController.registerUser
-);
-router.post(
-  "/login",
-  validateBody(schemasJoiUser.loginUserSchema),
-  usersController.loginUser
-);
 router.get("/current", authenticate, usersController.currentUser);
-router.post("/logout", authenticate, usersController.logoutUser);
 
 router.patch(
   "/themes",
