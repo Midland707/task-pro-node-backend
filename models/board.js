@@ -6,6 +6,7 @@ const boardSchema = new Schema(
   {
     title: {
       type: String,
+      default: "New Board",
       required: true,
     },
     icon: {
@@ -21,7 +22,7 @@ const boardSchema = new Schema(
       ref: "user",
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: false }
 );
 
 boardSchema.post("save", mongooseError);
