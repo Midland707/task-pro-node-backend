@@ -20,6 +20,10 @@
         {
       "name": "User",
       "description": "User endpoints"
+    },
+    {
+      "name": "Boards",
+      "description": "User boards endpoints"
     }
   ],
   "paths": {
@@ -135,7 +139,7 @@
             "content": {
               "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CurrentUserRequest"
+                "$ref": "#/components/schemas/CurrentUserResponse"
               }
             }
             }
@@ -154,16 +158,153 @@
         "parameters": [],
         "description": "Authorization token must be included",
         "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThemeUserRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Ok",
             "content": {
               "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThemeUserRequest"
+                "$ref": "#/components/schemas/ThemeUserResponse"
               }
             }
             }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/boards": {
+    "get": {
+         "tags": ["Boards"], 
+        "summary": "Getting user`s boards",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBoardsResponse"
+              }
+            }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/boards/add": {
+    "post": {
+         "tags": ["Boards"], 
+        "summary": "Add board to user",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [{ "Bearer": [] }],
+                "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBoardResponse"
+              }
+            }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/boards/{boardId}": {
+    "patch": {
+         "tags": ["Boards"],
+        "summary": "Update board fields",
+        "parameters": [
+           { "name": "boardId",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "description": "Authorization token must be included",
+        "security": [{ "Bearer": [] }],
+                "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBoardResponse"
+              }
+            }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+         "tags": ["Boards"],
+        "summary": "Remove board",
+        "parameters": [
+           { "name": "boardId",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "description": "Authorization token must be included",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Board deleted",
+            "content": {}
           },
           "401": {
             "description": "Not authorized",
@@ -249,7 +390,6 @@
       },
         "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -264,9 +404,9 @@
           }
         }
       },
-        "CurrentUserRequest": {
+        "CurrentUserResponse": {
         "type": "object",
-        "required": ["email", "password"],
+      "required": ["email", "password"],
         "properties": {
           "id": {
             "type": "string",
@@ -295,10 +435,19 @@
               "example": "dark"
             }
         }
-      },   
+      },
         "ThemeUserRequest": {
         "type": "object",
-        "required": ["theme", "message"],
+        "properties": {
+          "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "dark"
+            }
+        }
+      },       
+        "ThemeUserResponse": {
+        "type": "object",
         "properties": {
           "theme": {
               "type": "string",
@@ -311,9 +460,100 @@
             "example": "The theme has been changed. Now it's a dark theme"
           }
         }
-      }   
-
-
+      },
+        "GetBoardsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Board title"
+          },          
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "example": "https://cloudinary.com/icon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "background URL",
+            "example": "https://cloudinary.com/background.jpeg"
+          },
+          "owner": {
+              "type": "string",
+              "description": "Owner`s id",
+              "example": "6497272b903f686ac6123cad"
+            }
+          }
+        }
+      },
+        "AddBoardRequest": {
+          "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Board title"
+          }
+          }
+      },
+        "AddBoardResponse": {
+          "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Board title"
+          },          
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "example": "https://cloudinary.com/icon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "background URL",
+            "example": "https://cloudinary.com/background.jpeg"
+          },
+          "owner": {
+              "type": "string",
+              "description": "Owner`s id",
+              "example": "6496f88960259996ba1250a1"
+            }
+          }
+      },
+        "BoardRequest": {
+          "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Board title"
+          },          
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "example": "https://cloudinary.com/icon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "background URL",
+            "example": "https://cloudinary.com/background.jpeg"
+          }
+        }
+      }
       
     },
     "securitySchemes": {

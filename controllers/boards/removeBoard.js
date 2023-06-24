@@ -8,7 +8,7 @@ const removeBoard = async (req, res) => {
     throw HttpError(404);
   }
   res.json({
-    message: "board deleted",
+    message: "Board deleted",
   });
 };
 
