@@ -2,7 +2,7 @@ const {Board}=require('../../models')
 
 const getBoard = async (req, res) => {
  const {_id: owner } = req.user;
- const result = Board.find()
+ const result = await Board.find({owner})
 res.json(result)
 };
 

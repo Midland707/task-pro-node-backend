@@ -1,5 +1,15 @@
+const { Column } = require("../../models");
+
+
 const removeColumn = async (req, res) => {
-  res.json("removeColumn");
+  const { id } = req.params;
+  const result = await Column.findByIdAndRemove(id);
+  if (!result) {
+    throw HttpError(404);
+  }
+  res.json({
+    message: "column deleted",
+  });
 };
 
 module.exports = removeColumn;
