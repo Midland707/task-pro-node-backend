@@ -18,7 +18,12 @@ router.post(
 router.get("/current", authenticate, usersController.currentUser);
 router.post("/logout", authenticate, usersController.logoutUser);
 
-router.patch("/theme", authenticate, usersController.updateTheme);
+router.patch(
+  "/themes",
+  authenticate,
+  validateBody(schemasJoiUser.updateThemeSchema),
+  usersController.updateTheme
+);
 
 router.patch("/", authenticate, usersController.updateUser);
 
