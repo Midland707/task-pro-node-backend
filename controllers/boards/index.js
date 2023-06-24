@@ -1,6 +1,6 @@
 const { controllerWrapper } = require("../../decorators");
 
-const getBoard = require("./addBoard");
+const getBoard = require("./getBoard");
 const addBoard = require("./addBoard");
 const updateBoard = require("./updateBoard");
 const removeBoard = require("./removeBoard");
