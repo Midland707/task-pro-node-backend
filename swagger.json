@@ -16,10 +16,14 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+        {
+      "name": "User",
+      "description": "User endpoints"
     }
   ],
   "paths": {
-    "/users/register": {
+    "/api/auth/register": {
       "post": {
          "tags": ["Auth"], 
         "summary": "User registration",
@@ -57,7 +61,7 @@
         }
       }
     },
-    "/users/login": {
+    "/api/auth/login": {
     "post": {
          "tags": ["Auth"], 
         "summary": "User login",
@@ -95,7 +99,7 @@
         }
       }
     },
-    "/users/logout": {
+    "/api/auth/logout": {
     "post": {
          "tags": ["Auth"], 
         "summary": "User logout",
@@ -126,7 +130,7 @@
     },
     "/users/current": {
     "get": {
-         "tags": ["Auth"], 
+         "tags": ["User"], 
         "summary": "Get current user info",
         "parameters": [
           {
