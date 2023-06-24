@@ -24,6 +24,11 @@ router.patch(
   usersController.updateTheme
 );
 
-router.patch("/", authenticate, usersController.updateUser);
+router.patch(
+  "/",
+  authenticate,
+  validateBody(schemasJoiUser.updateUserSchema),
+  usersController.updateUser
+);
 
 module.exports = router;
