@@ -1,11 +1,6 @@
-const {
-  registerUser,
-  loginUser,
-  currentUser,
-  logoutUser,
-  updateTheme,
-  updateUser,
-} = require("./users");
+const { registerUser, loginUser, logoutUser } = require("./auth");
+
+const { currentUser, updateTheme, updateUser } = require("./users");
 
 const { getBoard, addBoard, updateBoard, removeBoard } = require("./boards");
 

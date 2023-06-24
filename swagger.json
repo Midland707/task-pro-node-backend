@@ -16,10 +16,14 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+        {
+      "name": "User",
+      "description": "User endpoints"
     }
   ],
   "paths": {
-    "/users/register": {
+    "/api/auth/register": {
       "post": {
          "tags": ["Auth"], 
         "summary": "User registration",
@@ -57,7 +61,7 @@
         }
       }
     },
-    "/users/login": {
+    "/api/auth/login": {
     "post": {
          "tags": ["Auth"], 
         "summary": "User login",
@@ -95,21 +99,19 @@
         }
       }
     },
-        "/users/logout": {
+    "/api/auth/logout": {
     "post": {
          "tags": ["Auth"], 
         "summary": "User logout",
         "parameters": [
           {
             "type": "text",
-            "description": "Authorization token must be included"
+            "name": "token",
+            "description": "Authorization token must be included",
+            "required": true
           }
         ],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "",
-          "content": {}
-        },
         "responses": {
           "204": {
             "description": "No Content",
@@ -121,6 +123,37 @@
           },
           "500": {
             "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/current": {
+    "get": {
+         "tags": ["User"], 
+        "summary": "Get current user info",
+        "parameters": [
+          {
+            "type": "text",
+            "name": "token",
+            "description": "Authorization token must be included",
+            "required": true
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrentUserRequest"
+              }
+            }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
             "content": {}
           }
         }
@@ -191,7 +224,7 @@
             },
             "theme": {
               "type": "string",
-              "description": "User's id",
+              "description": "User's theme",
               "example": "dark"
             },
             "avatarURL": {
@@ -217,7 +250,39 @@
             "example": "qwerty123"
           }
         }
-      }
+      },
+        "CurrentUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "My name"
+          },          
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "Avatar URL",
+            "example": "https://cloudinary.com/avatar.jpeg"
+          },
+          "theme": {
+              "type": "string",
+              "description": "User's theme",
+              "example": "dark"
+            }
+        }
+      }      
     },
     "securitySchemes": {
       "Bearer": {

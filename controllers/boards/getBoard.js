@@ -1,9 +1,9 @@
-const {Board}=require('../../models')
+const { Board } = require("../../models");
 
 const getBoard = async (req, res) => {
- const {_id: owner } = req.user;
- const result = await Board.find({owner})
-res.json(result)
+  const { _id: owner } = req.user;
+  const result = await Board.find({ owner });
+  res.json(result);
 };
 
 module.exports = getBoard;
