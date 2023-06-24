@@ -1,5 +1,12 @@
 const currentUser = async (req, res) => {
-  res.json("currentUser");
+  const { email, name, theme, avatarURL, _id: id } = req.user;
+  res.json({
+    id,
+    name,
+    email,
+    avatarURL,
+    theme,
+  });
 };
 
 module.exports = currentUser;
