@@ -2,9 +2,9 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { mongooseError } = require("../helpers");
 
-const boardSchema = new Schema({
-  title: {
-    string: {
+const boardSchema = new Schema(
+  {
+    title: {
       type: String,
       required: true,
     },
@@ -16,12 +16,16 @@ const boardSchema = new Schema({
       type: String,
       default: null,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
-});
+  { versionKey: false, timestamps: true }
+);
 
 boardSchema.post("save", mongooseError);
 
 const Board = model("board", boardSchema);
 
-
-module.exports= {Board}
+module.exports = { Board };
