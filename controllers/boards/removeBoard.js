@@ -1,5 +1,15 @@
+const { HttpError } = require("../../helpers");
+const { Board } = require("../../models");
+
 const removeBoard = async (req, res) => {
-  res.json("removeBoard");
+  const { id } = req.params;
+  const result = await Board.findByIdAndRemove(id);
+  if (!result) {
+    throw HttpError(404);
+  }
+  res.json({
+    message: "board deleted",
+  });
 };
 
 module.exports = removeBoard;
