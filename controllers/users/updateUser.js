@@ -3,14 +3,12 @@ const { HttpError } = require("../../helpers");
 const bcrypt = require("bcrypt");
 
 const updateUser = async (req, res) => {
-  const { avatarURL, _id: id } = req.user;
+  const { _id: id, email } = req.user;
   const { email: newEmail, name: newName, password: newPassword } = req.body;
-  // const {avatar}= req.file
 
-  // const isMatchPasswords = await bcrypt.compare(newPassword, password);
-  // if (isMatchPasswords) {
-  //   throw HttpError(400, "New password can't be ");
-  // }
+  const isEmailInUse = await User.findOne({ newEmail });
+  if (email !== newEmail && isEmailInUse)
+    throw HttpError(409, "Please, choose another email");
 
   const userNewData = {
     email: newEmail,
@@ -21,6 +19,10 @@ const updateUser = async (req, res) => {
     userNewData.password = await bcrypt.hash(newPassword, 10);
   }
 
+  if (req.file) {
+    userNewData.avatarURL = req.file.path;
+  }
+
   const result = await User.findOneAndUpdate(id, userNewData, {
     new: true,
   });
@@ -29,6 +31,7 @@ const updateUser = async (req, res) => {
   res.json({
     email: result.email,
     name: result.name,
+    avatarURL: result.avatarURL,
   });
 };
 
