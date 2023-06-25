@@ -6,7 +6,7 @@ const updateUser = async (req, res) => {
   const { _id: id, email } = req.user;
   const { email: newEmail, name: newName, password: newPassword } = req.body;
 
-  const isEmailInUse = await User.findOne({ newEmail });
+  const isEmailInUse = await User.findOne({ email: newEmail });
   if (email !== newEmail && isEmailInUse)
     throw HttpError(409, "Please, choose another email");
 
