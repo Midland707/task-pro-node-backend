@@ -4,7 +4,8 @@ const boardsController = require("../../controllers");
 const { authenticate } = require("../../middlewares");
 
 router.get("/", authenticate, boardsController.getBoard);
-router.post("/add", authenticate, boardsController.addBoard);
+router.get("/:id", authenticate, boardsController.getBoardById);
+router.post("/", authenticate, boardsController.addBoard);
 router.patch("/:id", authenticate, boardsController.updateBoard);
 router.delete("/:id", authenticate, boardsController.removeBoard);
 

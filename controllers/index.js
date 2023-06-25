@@ -2,7 +2,13 @@ const { registerUser, loginUser, logoutUser } = require("./auth");
 
 const { currentUser, updateTheme, updateUser } = require("./users");
 
-const { getBoard, addBoard, updateBoard, removeBoard } = require("./boards");
+const {
+  getBoard,
+  getBoardById,
+  addBoard,
+  updateBoard,
+  removeBoard,
+} = require("./boards");
 
 const {
   getColumn,
@@ -22,6 +28,7 @@ module.exports = {
   updateUser,
 
   getBoard,
+  getBoardById,
   addBoard,
   updateBoard,
   removeBoard,

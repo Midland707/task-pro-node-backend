@@ -4,7 +4,7 @@ const cardsController = require("../../controllers");
 const { authenticate } = require("../../middlewares");
 
 router.get("/", authenticate, cardsController.getCard);
-router.post("/add", authenticate, cardsController.addCard);
+router.post("/", authenticate, cardsController.addCard);
 router.patch("/:id", authenticate, cardsController.updateCard);
 router.delete("/:id", authenticate, cardsController.removeCard);
 
