@@ -415,6 +415,13 @@
       "patch": {
         "tags": ["Columns"],
         "summary": "Update column`s fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -508,6 +515,13 @@
       "patch": {
         "tags": ["Cards"],
         "summary": "Update card`s fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "",
           "required": true,
