@@ -1,5 +1,7 @@
 const getColumn = async (req, res) => {
-  res.json("getColumn");
+  const { _id: owner } = req.user;
+  const result = await Column.find({ owner });
+  res.json(result);
 };
 
 module.exports = getColumn;

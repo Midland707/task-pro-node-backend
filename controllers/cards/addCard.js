@@ -1,5 +1,9 @@
+const { Card } = require("../../models");
+
 const addCard = async (req, res) => {
-  res.json("addCard");
+  const {_id: owner} = req.user
+  const result = await Card.create({...req.body, owner});
+  res.status(201).json(result);
 };
 
 module.exports = addCard;
