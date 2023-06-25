@@ -17,16 +17,16 @@ const cardSchema = new Schema(
       enum: ["without", "low", "medium", "high"],
       default: "without",
     },
-    deadline:{
-        type: String,
-        default:null
+    deadline: {
+      type: String,
+      default: null,
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: false }
 );
 
 cardSchema.post("save", mongooseError);

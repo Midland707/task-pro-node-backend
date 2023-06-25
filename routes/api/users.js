@@ -11,7 +11,7 @@ const {
 router.get("/current", authenticate, usersController.currentUser);
 
 router.patch(
-  "/theme",
+  "/themes",
   authenticate,
   validateBody(schemasJoiUser.updateThemeSchema),
   usersController.updateTheme

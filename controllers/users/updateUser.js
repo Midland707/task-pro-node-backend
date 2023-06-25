@@ -29,8 +29,9 @@ const updateUser = async (req, res) => {
   if (!result) throw HttpError(404);
 
   res.json({
-    email: result.email,
     name: result.name,
+    email: result.email,
+    theme: result.theme,
     avatarURL: result.avatarURL,
   });
 };
