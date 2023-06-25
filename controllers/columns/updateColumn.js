@@ -1,5 +1,5 @@
 const { Column } = require("../../models");
-
+const { HttpError } = require("../../helpers");
 
 const updateColumn = async (req, res) => {
   const { id } = req.params;

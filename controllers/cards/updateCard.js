@@ -1,5 +1,16 @@
+const { Card } = require("../../models");
+const { HttpError } = require("../../helpers");
+
 const updateCard = async (req, res) => {
-  res.json("updateCard");
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+  const result = await Card.findByIdAndUpdate({ _id: id, owner }, req.body, {
+    new: true,
+  });
+  if (!result) {
+    throw HttpError(404);
+  }
+  return res.status(200).json(result);
 };
 
 module.exports = updateCard;
