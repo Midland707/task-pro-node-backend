@@ -504,7 +504,7 @@
         }
       }
     },
-    "/api/cards/{cardsId}": {
+    "/api/cards/{cardId}": {
       "patch": {
         "tags": ["Cards"],
         "summary": "Update card`s fields",
