@@ -8,7 +8,7 @@ const getBoardById = async (req, res) => {
   const columns = await Column.find({ columnOwner });
   const cards = await Promise.all(
     columns.map(async ({ _id: cardOwner }) => {
-      return await Card.find({ cardOwner });
+      return await Card.find({ cardOwner }).populate("cardOwner");
     })
   );
 
