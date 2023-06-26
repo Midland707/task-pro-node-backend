@@ -5,16 +5,15 @@ const { HttpError } = require("../../helpers");
 
 const getBoardById = async (req, res) => {
   const { id: columnOwner } = req.params;
-  const result = await Column.find({ columnOwner }).populate(
-    "columnOwner",
-    "icon"
+  const columns = await Column.find({ columnOwner });
+  const cards = await Promise.all(
+    columns.map(async ({ _id: cardOwner }) => {
+      return await Card.find({ cardOwner });
+    })
   );
-  // const result1 = await Card.find({ cardOwner }).populate(
-  //   "columnOwner",
-  //   "email"
-  // );
-  if (!result) throw HttpError(404);
-  res.json(result);
+
+  if (!cards) throw HttpError(404);
+  res.json(cards);
 };
 
 module.exports = getBoardById;
