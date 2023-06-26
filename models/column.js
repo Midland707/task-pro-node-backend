@@ -7,9 +7,8 @@ const columnSchema = new Schema(
       type: String,
       required: true,
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+    columnOwner: {
+      type: String,
     },
   },
   { versionKey: false, timestamps: false }

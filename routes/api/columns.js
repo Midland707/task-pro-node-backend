@@ -3,8 +3,8 @@ const router = express.Router();
 const columnController = require("../../controllers");
 const { authenticate } = require("../../middlewares");
 
-router.get("/", authenticate, columnController.getColumn);
-router.post("/", authenticate, columnController.addColumn);
+router.get("/:id", authenticate, columnController.getColumn);
+router.post("/:id", authenticate, columnController.addColumn);
 router.patch("/:id", authenticate, columnController.updateColumn);
 router.delete("/:id", authenticate, columnController.removeColumn);
 
