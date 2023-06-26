@@ -450,7 +450,7 @@
         }
       }
     },
-    "/api/columns": {
+    "/api/columns/{boardId}": {
       "post": {
         "tags": ["Columns"],
         "summary": "Add column to board",
@@ -550,7 +550,7 @@
         }
       }
     },
-    "/api/cards": {
+    "/api/cards/{columnId}": {
       "post": {
         "tags": ["Cards"],
         "summary": "Add card to column",
