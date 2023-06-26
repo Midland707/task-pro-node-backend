@@ -22,7 +22,8 @@ const cardSchema = new Schema(
       default: null,
     },
     cardOwner: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "column",
     },
   },
   { versionKey: false, timestamps: false }

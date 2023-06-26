@@ -8,7 +8,8 @@ const columnSchema = new Schema(
       required: true,
     },
     columnOwner: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "board",
     },
   },
   { versionKey: false, timestamps: false }
