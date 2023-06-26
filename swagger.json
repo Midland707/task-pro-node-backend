@@ -13,6 +13,14 @@
   "produces": ["application/json"],
   "servers": [
     {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/RUS14JOB_1/test2/1.0.0"
+    },
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/RUS14JOB_1/Test/1.0.0"
+    },
+    {
       "url": "https://task-pro-backend-j82b.onrender.com"
     }
   ],
@@ -35,7 +43,7 @@
     },
     {
       "name": "Cards",
-      "description": "Columns cards endpoints"
+      "description": "Columns tasks endpoints"
     }
   ],
   "paths": {
@@ -319,12 +327,45 @@
       }
     },
     "/api/boards/{boardId}": {
+      "get": {
+        "tags": ["Boards"],
+        "summary": "Getting user`s all colomns and cards",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
       "patch": {
         "tags": ["Boards"],
         "summary": "Update board fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -363,6 +404,44 @@
           "200": {
             "description": "Board deleted",
             "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": null
+          }
+        }
+      },
+      "post": {
+        "tags": ["Boards"],
+        "summary": "Add board to user",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
+                }
+              }
+            }
           },
           "401": {
             "description": "Not authorized",
@@ -511,7 +590,7 @@
         }
       }
     },
-    "/api/cards/{cardId}": {
+    "/api/cards/{cardsId}": {
       "patch": {
         "tags": ["Cards"],
         "summary": "Update card`s fields",
