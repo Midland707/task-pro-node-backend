@@ -3,8 +3,8 @@ const router = express.Router();
 const cardsController = require("../../controllers");
 const { authenticate } = require("../../middlewares");
 
-router.get("/", authenticate, cardsController.getCard);
-router.post("/", authenticate, cardsController.addCard);
+router.get("/:id", authenticate, cardsController.getCard);
+router.post("/:id", authenticate, cardsController.addCard);
 router.patch("/:id", authenticate, cardsController.updateCard);
 router.delete("/:id", authenticate, cardsController.removeCard);
 
