@@ -1,5 +1,4 @@
-const { Board } = require("../../models");
-const { Column } = require("../../models");
+const { Board, Column } = require("../../models");
 
 const addColumn = async (req, res) => {
   // const { id: columnOwner } = req.params;

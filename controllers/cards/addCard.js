@@ -1,5 +1,4 @@
-const { Column } = require("../../models");
-const { Card } = require("../../models");
+const { Column, Card } = require("../../models");
 
 const addCard = async (req, res) => {
   // const { id: cardOwner } = req.params;
