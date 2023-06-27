@@ -262,6 +262,17 @@
             "Bearer": []
           }
         ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HelpMessageRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Ok",
@@ -1049,7 +1060,7 @@
           }
         }
       },
-      "HelpMessageResponse": {
+      "HelpMessageRequest": {
         "type": "object",
         "properties": {
           "email": {
@@ -1061,6 +1072,16 @@
             "type": "string",
             "description": "Text message",
             "example": "Help me PREASE !!!!"
+          }
+        }
+      },
+      "HelpMessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response of message",
+            "example": "begging for help email sent"
           }
         }
       }
