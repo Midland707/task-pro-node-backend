@@ -8,21 +8,27 @@ const {
   uploadAvatar,
 } = require("../../middlewares");
 
-router.get("/current", authenticate, usersController.currentUser);
+router.use(authenticate);
+
+router.get("/current", usersController.currentUser);
 
 router.patch(
   "/themes",
-  authenticate,
   validateBody(schemasJoiUser.updateThemeSchema),
   usersController.updateTheme
 );
 
 router.patch(
   "/",
-  authenticate,
   uploadAvatar.single("avatar"),
   validateBody(schemasJoiUser.updateUserSchema),
   usersController.updateUser
+);
+
+router.post(
+  "/help",
+  validateBody(schemasJoiUser.sendHelpEmailSchema),
+  usersController.sendHelpEmail
 );
 
 module.exports = router;
