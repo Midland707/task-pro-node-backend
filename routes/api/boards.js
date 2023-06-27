@@ -4,7 +4,7 @@ const boardsController = require("../../controllers");
 const { authenticate, validateBody } = require("../../middlewares");
 const { addBoardSchema, updateBoardSchema } = require("../../schemas");
 
-router.get("/:id", authenticate, boardsController.getBoard);
+router.get("/", authenticate, boardsController.getBoard);
 router.post(
   "/:id",
   authenticate,
