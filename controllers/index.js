@@ -1,6 +1,11 @@
 const { registerUser, loginUser, logoutUser } = require("./auth");
 
-const { currentUser, updateTheme, updateUser } = require("./users");
+const {
+  currentUser,
+  updateTheme,
+  updateUser,
+  sendHelpEmail,
+} = require("./users");
 
 const {
   getBoard,
@@ -26,6 +31,7 @@ module.exports = {
   logoutUser,
   updateTheme,
   updateUser,
+  sendHelpEmail,
 
   getBoard,
   getBoardById,

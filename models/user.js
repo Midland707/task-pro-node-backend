@@ -107,11 +107,23 @@ const updateUserSchema = Joi.object({
   }),
 });
 
+const sendHelpEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegex).required().messages({
+    "string.pattern.base": "Email must be a valid email address",
+    "any.required": "Email is required",
+  }),
+  message: Joi.string().min(10).required().messages({
+    "string.min": "Please, explain your problem in more detail",
+    "any.required": "Describe your problem",
+  }),
+});
+
 const schemasJoiUser = {
   registerUserSchema,
   loginUserSchema,
   updateThemeSchema,
   updateUserSchema,
+  sendHelpEmailSchema,
 };
 
 module.exports = {
