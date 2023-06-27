@@ -2,7 +2,7 @@ const { Card } = require("../../models");
 
 const getCard = async (req, res) => {
   const { id: cardOwner } = req.params;
-  const result = await Card.find({ cardOwner });
+  const result = await Card.find({ cardOwner }).populate("cardOwner");
   res.json(result);
 };
 
