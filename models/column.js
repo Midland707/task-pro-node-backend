@@ -10,7 +10,7 @@ const columnSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "board",
     },
   },
   { versionKey: false, timestamps: false }

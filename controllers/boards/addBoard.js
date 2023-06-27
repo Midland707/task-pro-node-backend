@@ -1,9 +1,8 @@
 const { Board } = require("../../models");
-const {HttpError}= require("../../helpers")
+const { HttpError } = require("../../helpers");
 
 const addBoard = async (req, res) => {
   const { _id: owner } = req.user;
-
   const { title } = req.body;
 
   const existingBoard = await Board.findOne({ owner, title });

@@ -1,8 +1,8 @@
 const { Card } = require("../../models");
 
 const getCard = async (req, res) => {
-  const { _id: owner } = req.user;
-  const result = await Card.find({ owner });
+  const { id: cardOwner } = req.params;
+  const result = await Card.find({ cardOwner });
   res.json(result);
 };
 

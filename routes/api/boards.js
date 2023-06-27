@@ -6,7 +6,7 @@ const { addBoardSchema, updateBoardSchema } = require("../../schemas");
 
 router.get("/", authenticate, boardsController.getBoard);
 router.post(
-  "/:id",
+  "/",
   authenticate,
   validateBody(addBoardSchema),
   boardsController.addBoard
