@@ -1,4 +1,3 @@
-const { Board } = require("../../models");
 const { Column } = require("../../models");
 const { Card } = require("../../models");
 const { HttpError } = require("../../helpers");

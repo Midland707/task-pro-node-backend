@@ -13,14 +13,6 @@
   "produces": ["application/json"],
   "servers": [
     {
-      "description": "SwaggerHub API Auto Mocking",
-      "url": "https://virtserver.swaggerhub.com/RUS14JOB_1/test2/1.0.0"
-    },
-    {
-      "description": "SwaggerHub API Auto Mocking",
-      "url": "https://virtserver.swaggerhub.com/RUS14JOB_1/Test/1.0.0"
-    },
-    {
       "url": "https://task-pro-backend-j82b.onrender.com"
     }
   ],
@@ -150,6 +142,35 @@
         }
       }
     },
+    "/api/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user info",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users": {
       "patch": {
         "tags": ["User"],
@@ -172,35 +193,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/api/users/current": {
-      "get": {
-        "tags": ["User"],
-        "summary": "Get current user info",
-        "parameters": [],
-        "description": "Authorization token must be included",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "Ok",
@@ -248,6 +240,35 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ThemeUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/help": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Send email to support",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HelpMessageResponse"
                 }
               }
             }
@@ -343,7 +364,45 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CardResponse"
+                  "$ref": "#/components/schemas/ColumnsAndCardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Boards"],
+        "summary": "Add board to user",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
                 }
               }
             }
@@ -408,44 +467,6 @@
           "401": {
             "description": "Not authorized",
             "content": null
-          }
-        }
-      },
-      "post": {
-        "tags": ["Boards"],
-        "summary": "Add board to user",
-        "parameters": [],
-        "description": "Authorization token must be included",
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BoardRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddBoardResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
           }
         }
       }
@@ -1014,6 +1035,32 @@
             "type": "string",
             "description": "Owner`s id",
             "example": "6496f88960259996ba1250a1"
+          }
+        }
+      },
+      "ColumnsAndCardsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "$ref": "#/components/schemas/CardResponse"
+            }
+          }
+        }
+      },
+      "HelpMessageResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Users's email",
+            "example": "test@email.com"
+          },
+          "message": {
+            "type": "string",
+            "description": "Text message",
+            "example": "Help me PREASE !!!!"
           }
         }
       }
