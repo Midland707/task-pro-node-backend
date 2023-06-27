@@ -2,7 +2,7 @@ const { Board } = require("../../models");
 
 const getBoard = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Board.find({ owner }).popolate("owner");
+  const result = await Board.find({ owner }).populate("owner", "email");
   res.json(result);
 };
 
