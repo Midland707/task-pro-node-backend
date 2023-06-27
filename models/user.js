@@ -29,6 +29,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    activeBoard: {
+      type: String,
+      default: null,
+    },
     theme: {
       type: String,
       enum: themeList,

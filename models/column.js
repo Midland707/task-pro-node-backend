@@ -7,6 +7,12 @@ const columnSchema = new Schema(
       type: String,
       required: true,
     },
+    cards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "card",
+      },
+    ],
     columnOwner: {
       type: Schema.Types.ObjectId,
       ref: "board",
