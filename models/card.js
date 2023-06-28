@@ -5,7 +5,6 @@ const cardSchema = new Schema(
   {
     title: {
       type: String,
-      default: "New Task",
       required: true,
     },
     description: {
@@ -18,8 +17,8 @@ const cardSchema = new Schema(
       default: "without",
     },
     deadline: {
-      type: String,
-      default: null,
+      type: Date,
+      default: Date.now(),
     },
     cardOwner: {
       type: Schema.Types.ObjectId,
