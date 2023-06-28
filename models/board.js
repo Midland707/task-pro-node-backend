@@ -10,7 +10,17 @@ const boardSchema = new Schema(
     },
     icon: {
       type: String,
-      default: null,
+      enum: [
+        "icon-four-circles",
+        "icon-star",
+        "icon-yo-yo",
+        "icon-puzzle-piece",
+        "icon-box",
+        "icon-lightning-small",
+        "icon-three-circles",
+        "icon-circle-box",
+      ],
+      default: "icon-four-circles",
     },
     background: {
       type: String,
@@ -23,7 +33,6 @@ const boardSchema = new Schema(
   },
   { versionKey: false, timestamps: false }
 );
-
 
 boardSchema.post("save", mongooseError);
 
