@@ -5,6 +5,7 @@ const { authenticate, validateBody } = require("../../middlewares");
 const { addBoardSchema, updateBoardSchema } = require("../../schemas");
 
 router.get("/", authenticate, boardsController.getBoard);
+router.get("/:id", authenticate, boardsController.getBoardById);
 router.post(
   "/",
   authenticate,

@@ -5,7 +5,6 @@ const columnSchema = new Schema(
   {
     title: {
       type: String,
-      default: "New Column",
       required: true,
     },
     columnOwner: {

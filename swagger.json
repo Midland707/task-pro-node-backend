@@ -11,29 +11,41 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://task-pro-backend-j82b.onrender.com" }],
+  "servers": [
+    {
+      "url": "https://task-pro-backend-j82b.onrender.com"
+    }
+  ],
   "tags": [
     {
       "name": "Auth",
       "description": "Authorization endpoints"
     },
-        {
+    {
       "name": "User",
       "description": "User endpoints"
     },
     {
       "name": "Boards",
       "description": "User boards endpoints"
+    },
+    {
+      "name": "Columns",
+      "description": "Boards columns endpoints"
+    },
+    {
+      "name": "Cards",
+      "description": "Columns tasks endpoints"
     }
   ],
   "paths": {
     "/api/auth/register": {
       "post": {
-         "tags": ["Auth"], 
+        "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
         "requestBody": {
-          "description": "",
+          "description": "# Опис параметрів запиту:\n\n**username** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача. \n\n**password** - string, пароль користувача. \n",
           "required": true,
           "content": {
             "application/json": {
@@ -45,7 +57,7 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "**New User Registered**\n\nОпис параметрів відповіді:\n\n**id** - ObjectId, унікальний ідентифікатор користувача\n\n**username** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача.\n\n**balance** - number, баланс користувача.\n\n**token** - string, токен\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -66,8 +78,8 @@
       }
     },
     "/api/auth/login": {
-    "post": {
-         "tags": ["Auth"], 
+      "post": {
+        "tags": ["Auth"],
         "summary": "User login",
         "parameters": [],
         "requestBody": {
@@ -83,11 +95,11 @@
         },
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "**Successful operation**\n\nОпис параметрів відповіді:\n\n**id** - ObjectId, унікальний ідентифікатор користувача\n\n**username** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача.\n\n**balance** - number, баланс користувача.\n\n**token** - string, токен\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/RegistrationResponse"
                 }
               }
             }
@@ -104,12 +116,16 @@
       }
     },
     "/api/auth/logout": {
-    "post": {
-         "tags": ["Auth"], 
+      "post": {
+        "tags": ["Auth"],
         "summary": "User logout",
         "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "No Content",
@@ -127,21 +143,25 @@
       }
     },
     "/api/users/current": {
-    "get": {
-         "tags": ["User"], 
+      "get": {
+        "tags": ["User"],
         "summary": "Get current user info",
         "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Ok",
             "content": {
               "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CurrentUserResponse"
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
-            }
             }
           },
           "401": {
@@ -151,13 +171,57 @@
         }
       }
     },
-    "/api/users/theme": {
-    "patch": {
-         "tags": ["User"], 
+    "/api/users": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update user info",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "# Опис параметрів запиту:\n\n**avatar** - string, фото користувача в форматі form-data.\n\n**name** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача. \n\n**password** - string, пароль користувача. \n",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/themes": {
+      "patch": {
+        "tags": ["User"],
         "summary": "Update user`s theme",
         "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "",
           "required": true,
@@ -174,10 +238,50 @@
             "description": "Ok",
             "content": {
               "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ThemeUserResponse"
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeUserResponse"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users/help": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Send email to support",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HelpMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HelpMessageResponse"
+                }
+              }
             }
           },
           "401": {
@@ -188,21 +292,25 @@
       }
     },
     "/api/boards": {
-    "get": {
-         "tags": ["Boards"], 
+      "get": {
+        "tags": ["Boards"],
         "summary": "Getting user`s boards",
         "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Ok",
             "content": {
               "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetBoardsResponse"
+                "schema": {
+                  "$ref": "#/components/schemas/GetBoardsResponse"
+                }
               }
-            }
             }
           },
           "401": {
@@ -210,16 +318,18 @@
             "content": {}
           }
         }
-      }
-    },
-    "/api/boards/add": {
-    "post": {
-         "tags": ["Boards"], 
+      },
+      "post": {
+        "tags": ["Boards"],
         "summary": "Add board to user",
         "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
-                "requestBody": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
           "description": "",
           "required": true,
           "content": {
@@ -235,10 +345,10 @@
             "description": "Ok",
             "content": {
               "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddBoardResponse"
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
+                }
               }
-            }
             }
           },
           "401": {
@@ -249,19 +359,44 @@
       }
     },
     "/api/boards/{boardId}": {
-    "patch": {
-         "tags": ["Boards"],
-        "summary": "Update board fields",
-        "parameters": [
-           { "name": "boardId",
-            "required": true,
-            "in": "path",
-            "type": "string"
+      "get": {
+        "tags": ["Boards"],
+        "summary": "Getting user`s all colomns and cards",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnsAndCardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Boards"],
+        "summary": "Add board to user",
+        "parameters": [],
         "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
-                "requestBody": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
           "description": "",
           "required": true,
           "content": {
@@ -277,10 +412,47 @@
             "description": "Ok",
             "content": {
               "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddBoardResponse"
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Boards"],
+        "summary": "Update board fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
+                }
+              }
             }
           },
           "401": {
@@ -290,20 +462,217 @@
         }
       },
       "delete": {
-         "tags": ["Boards"],
+        "tags": ["Boards"],
         "summary": "Remove board",
-        "parameters": [
-           { "name": "boardId",
-            "required": true,
-            "in": "path",
-            "type": "string"
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
           }
         ],
-        "description": "Authorization token must be included",
-        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Board deleted",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": null
+          }
+        }
+      }
+    },
+    "/api/columns/{boardId}": {
+      "post": {
+        "tags": ["Columns"],
+        "summary": "Add column to board",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/columns/{columnId}": {
+      "patch": {
+        "tags": ["Columns"],
+        "summary": "Update column`s fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Columns"],
+        "summary": "Remove column",
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Column deleted",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/cards/{columnId}": {
+      "post": {
+        "tags": ["Cards"],
+        "summary": "Add card to column",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/cards/{cardsId}": {
+      "patch": {
+        "tags": ["Cards"],
+        "summary": "Update card`s fields",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cards"],
+        "summary": "Remove card",
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Card deleted",
             "content": {}
           },
           "401": {
@@ -314,16 +683,39 @@
       }
     }
   },
-  
-
-  
   "components": {
     "schemas": {
+      "User": {
+        "required": ["name", "email", "theme", "avatarURL"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Myname"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's id",
+            "example": "dark"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "https://cloudinary.com/avatar.jpeg"
+          }
+        }
+      },
       "RegistrationRequest": {
         "type": "object",
-        "required": ["name","email", "password"],
+        "required": ["name", "email", "password"],
         "properties": {
-        "name": {
+          "name": {
             "type": "string",
             "description": "User's name",
             "example": "Myname"
@@ -343,52 +735,44 @@
       },
       "RegistrationResponse": {
         "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "example": "example@gmail.com",
-              "format": "email"
-            },
-            "theme": {
-              "type": "string",
-              "description": "User's id",
-              "example": "dark"
-            },
-            "avatarURL": {
-              "type": "string",
-              "description": "User's avatar",
-              "example": "https://cloudinary.com/avatar.jpeg"
-            }
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiIyOWI4ZmZmNS0xN2NjLTQ5NTYtOTViZC1jN2U3N2FkZDEwOWEiLCJpYXQiOjE2ODE4OTM3MzEsImV4cCI6MTAwMDAwMDE2ODE4OTM3MzJ9.hQpNKIj4SR7Gm9waUMn7hzwKQyqwKrniL_qSW7SxrjM"
           }
+        },
+        "required": ["user", "token"]
       },
-        "LoginResponse": {
+      "LoginResponse": {
         "type": "object",
-          "properties": {
-            "token": {
-              "type": "string",
-              "description": "User's token",
-              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTVkNjJlNjE4MzgwMzY4NTk0NDZjNCIsImlhdCI6MTY4NzYxMjMzMCwiZXhwIjoxNjg3Njk4NzMwfQ.Exk_soSUARn-t-7FDQKsiFBTutt_vc9ok9UPuTdGqBU"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "example": "example@gmail.com",
-              "format": "email"
-            },
-            "theme": {
-              "type": "string",
-              "description": "User's theme",
-              "example": "dark"
-            },
-            "avatarURL": {
-              "type": "string",
-              "description": "User's avatar",
-              "example": "https://cloudinary.com/avatar.jpeg"
-            }
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTVkNjJlNjE4MzgwMzY4NTk0NDZjNCIsImlhdCI6MTY4NzYxMjMzMCwiZXhwIjoxNjg3Njk4NzMwfQ.Exk_soSUARn-t-7FDQKsiFBTutt_vc9ok9UPuTdGqBU"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "theme": {
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "https://cloudinary.com/avatar.jpeg"
           }
+        }
       },
-        "LoginRequest": {
+      "LoginRequest": {
         "type": "object",
         "properties": {
           "email": {
@@ -404,9 +788,36 @@
           }
         }
       },
-        "CurrentUserResponse": {
+      "UpdateUserRequest": {
         "type": "object",
-      "required": ["email", "password"],
+        "required": ["name", "email", "password", "avatar"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Myname"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "example@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "User's avatar",
+            "example": "avatar.jpeg"
+          }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "required": ["email", "password"],
         "properties": {
           "id": {
             "type": "string",
@@ -417,7 +828,7 @@
             "type": "string",
             "description": "User's name",
             "example": "My name"
-          },          
+          },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -430,31 +841,31 @@
             "example": "https://cloudinary.com/avatar.jpeg"
           },
           "theme": {
-              "type": "string",
-              "description": "User's theme",
-              "example": "dark"
-            }
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          }
         }
       },
-        "ThemeUserRequest": {
+      "ThemeUserRequest": {
         "type": "object",
         "required": ["theme"],
         "properties": {
           "theme": {
-              "type": "string",
-              "description": "User's theme",
-              "example": "dark"
-            }
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          }
         }
-      },       
-        "ThemeUserResponse": {
+      },
+      "ThemeUserResponse": {
         "type": "object",
         "properties": {
           "theme": {
-              "type": "string",
-              "description": "User's theme",
-              "example": "dark"
-            },
+            "type": "string",
+            "description": "User's theme",
+            "example": "dark"
+          },
           "message": {
             "type": "string",
             "description": "message",
@@ -462,32 +873,32 @@
           }
         }
       },
-        "GetBoardsResponse": {
+      "GetBoardsResponse": {
         "type": "array",
         "items": {
           "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Board's id",
-            "example": "6497272b903f686ac6123cad"
-          },
-          "title": {
-            "type": "string",
-            "description": "Board's title",
-            "example": "Board title"
-          },          
-          "icon": {
-            "type": "string",
-            "description": "Board's icon",
-            "example": "https://cloudinary.com/icon.svg"
-          },
-          "background": {
-            "type": "string",
-            "description": "background URL",
-            "example": "https://cloudinary.com/background.jpeg"
-          },
-          "owner": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Board's id",
+              "example": "6497272b903f686ac6123cad"
+            },
+            "title": {
+              "type": "string",
+              "description": "Board's title",
+              "example": "Board title"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Board's icon",
+              "example": "https://cloudinary.com/icon.svg"
+            },
+            "background": {
+              "type": "string",
+              "description": "background URL",
+              "example": "https://cloudinary.com/background.jpeg"
+            },
+            "owner": {
               "type": "string",
               "description": "Owner`s id",
               "example": "6497272b903f686ac6123cad"
@@ -495,15 +906,15 @@
           }
         }
       },
-        "BoardRequest": {
-          "type": "object",
-          "required": ["title"],
+      "BoardRequest": {
+        "type": "object",
+        "required": ["title"],
         "properties": {
           "title": {
             "type": "string",
             "description": "Board's title",
             "example": "Board title"
-          },          
+          },
           "icon": {
             "type": "string",
             "description": "Board's icon",
@@ -516,8 +927,8 @@
           }
         }
       },
-        "AddBoardResponse": {
-          "type": "object",
+      "AddBoardResponse": {
+        "type": "object",
         "properties": {
           "id": {
             "type": "string",
@@ -528,7 +939,7 @@
             "type": "string",
             "description": "Board's title",
             "example": "Board title"
-          },          
+          },
           "icon": {
             "type": "string",
             "description": "Board's icon",
@@ -540,13 +951,140 @@
             "example": "https://cloudinary.com/background.jpeg"
           },
           "owner": {
-              "type": "string",
-              "description": "Owner`s id",
-              "example": "6496f88960259996ba1250a1"
+            "type": "string",
+            "description": "Owner`s id",
+            "example": "6496f88960259996ba1250a1"
+          }
+        }
+      },
+      "ColumnRequest": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "Column title"
+          }
+        }
+      },
+      "ColumnResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Board title"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner`s id",
+            "example": "6496f88960259996ba1250a1"
+          }
+        }
+      },
+      "CardRequest": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Card title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Card description"
+          },
+          "label": {
+            "type": "string",
+            "description": "Card's label",
+            "example": "without"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "time deadline"
+          }
+        }
+      },
+      "CardResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Card title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Card description"
+          },
+          "label": {
+            "type": "string",
+            "description": "Card's label",
+            "example": "without"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "time deadline"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Owner`s id",
+            "example": "6496f88960259996ba1250a1"
+          }
+        }
+      },
+      "ColumnsAndCardsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "$ref": "#/components/schemas/CardResponse"
             }
           }
+        }
+      },
+      "HelpMessageRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Users's email",
+            "example": "test@email.com"
+          },
+          "message": {
+            "type": "string",
+            "description": "Text message",
+            "example": "Help me PREASE !!!!"
+          }
+        }
+      },
+      "HelpMessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response of message",
+            "example": "begging for help email sent"
+          }
+        }
       }
-      
     },
     "securitySchemes": {
       "Bearer": {
