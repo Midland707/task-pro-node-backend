@@ -15,9 +15,6 @@ const loginUser = async (req, res) => {
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
-  // if (!user.verify) {
-  //   throw HttpError(401, "Email is not verified yet");
-  // }
 
   const isCorrectPassword = await bcrypt.compare(password, user.password);
   if (!isCorrectPassword) {
@@ -31,17 +28,17 @@ const loginUser = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1d" });
-  // const token = "token placeholder";
 
   await User.findByIdAndUpdate(id, { token });
 
   res.json({
     token,
     user: {
+      name: user.name,
       email: user.email,
       theme: user.theme,
       avatarURL: user.avatarURL,
-      name: user.name,
+      activeBoard: user.activeBoard,
     },
   });
 };

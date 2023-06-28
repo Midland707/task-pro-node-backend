@@ -1,7 +1,6 @@
 const { User } = require("../../models");
 const { HttpError } = require("../../helpers");
 const bcrypt = require("bcrypt");
-const { nanoid } = require("nanoid");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -12,14 +11,12 @@ const registerUser = async (req, res) => {
     throw HttpError(409, "Email in use");
   }
   const hashPassw = await bcrypt.hash(password, 10);
-  const verificationToken = nanoid();
 
   const newUser = await User.create({
     ...req.body,
-    avatarURL: "placeholder",
     password: hashPassw,
     avatarURL: "",
-    verificationToken,
+    activeBoard: "",
   });
 
   const { _id: id } = newUser;
@@ -35,10 +32,11 @@ const registerUser = async (req, res) => {
   res.status(201).json({
     token,
     user: {
+      name: newUser.name,
       email: newUser.email,
       theme: newUser.theme,
-      name: newUser.name,
       avatarURL: newUser.avatarURL,
+      activeBoard: newUser.activeBoard,
     },
   });
 };

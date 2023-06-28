@@ -24,19 +24,14 @@ const userSchema = new Schema(
     },
     token: String,
     avatarURL: String,
-    avtiveBoard: String,
-    verify: {
-      type: Boolean,
-      default: false,
+    activeBoard: {
+      type: String,
+      default: "",
     },
     theme: {
       type: String,
       enum: themeList,
       default: "dark",
-    },
-    verificationToken: {
-      type: String,
-      required: [true, "Verify token is required"],
     },
   },
   { versionKey: false, timestamps: true }
