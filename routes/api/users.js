@@ -24,6 +24,11 @@ router.patch(
   validateBody(schemasJoiUser.updateUserSchema),
   usersController.updateUser
 );
+router.patch(
+  "/board",
+  validateBody(schemasJoiUser.updateActivBoardSchema),
+  usersController.updateActiveBoard
+);
 
 router.post(
   "/help",

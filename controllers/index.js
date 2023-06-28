@@ -4,6 +4,7 @@ const {
   currentUser,
   updateTheme,
   updateUser,
+  updateActiveBoard,
   sendHelpEmail,
 } = require("./users");
 
@@ -31,6 +32,7 @@ module.exports = {
   logoutUser,
   updateTheme,
   updateUser,
+  updateActiveBoard,
   sendHelpEmail,
 
   getBoard,

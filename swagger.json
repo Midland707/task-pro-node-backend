@@ -251,6 +251,46 @@
         }
       }
     },
+    "/api/users/board": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Save user`s active board",
+        "parameters": [],
+        "description": "Authorization token must be included",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveBoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActiveBoardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users/help": {
       "post": {
         "tags": ["User"],
@@ -708,6 +748,11 @@
             "type": "string",
             "description": "User's avatar",
             "example": "https://cloudinary.com/avatar.jpeg"
+          },
+          "activeBoard": {
+            "type": "string",
+            "description": "User's active board id",
+            "example": "649c7cdac8dc5563f4946fe4"
           }
         }
       },
@@ -736,12 +781,12 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "token": {
             "type": "string",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiIyOWI4ZmZmNS0xN2NjLTQ5NTYtOTViZC1jN2U3N2FkZDEwOWEiLCJpYXQiOjE2ODE4OTM3MzEsImV4cCI6MTAwMDAwMDE2ODE4OTM3MzJ9.hQpNKIj4SR7Gm9waUMn7hzwKQyqwKrniL_qSW7SxrjM"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
           }
         },
         "required": ["user", "token"]
@@ -870,6 +915,32 @@
             "type": "string",
             "description": "message",
             "example": "The theme has been changed. Now it's a dark theme"
+          }
+        }
+      },
+      "ActiveBoardRequest": {
+        "type": "object",
+        "required": ["activeBoard"],
+        "properties": {
+          "activeBoard": {
+            "type": "string",
+            "description": "User's active board ID",
+            "example": "6497272b903f686ac6123cad"
+          }
+        }
+      },
+      "ActiveBoardResponse": {
+        "type": "object",
+        "properties": {
+          "activeBoard": {
+            "type": "string",
+            "description": "User's active board ID",
+            "example": "6497272b903f686ac6123cad"
+          },
+          "message": {
+            "type": "string",
+            "description": "message",
+            "example": "Active board set to user."
           }
         }
       },

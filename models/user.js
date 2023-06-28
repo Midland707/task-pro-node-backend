@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { mongooseError } = require("../helpers");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const passNameRegex = /^[a-zA-Z0-9]+$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -12,27 +13,27 @@ const userSchema = new Schema(
       type: String,
       required: [true, "You must provide a name"],
     },
-    password: {
-      type: String,
-      required: [true, "Set password for user"],
-    },
     email: {
       type: String,
       required: [true, "Email is required"],
       match: emailRegex,
       unique: true,
     },
-    token: String,
-    avatarURL: String,
-    activeBoard: {
+    password: {
       type: String,
-      default: "",
+      required: [true, "Set password for user"],
     },
     theme: {
       type: String,
       enum: themeList,
       default: "dark",
     },
+    avatarURL: String,
+    activeBoard: {
+      type: String,
+      default: "",
+    },
+    token: String,
   },
   { versionKey: false, timestamps: true }
 );
@@ -113,12 +114,20 @@ const sendHelpEmailSchema = Joi.object({
   }),
 });
 
+const updateActivBoardSchema = Joi.object({
+  activeBoard: Joi.objectId().required().messages({
+    "string.pattern.base": "Email must be a valid email address",
+    "any.required": "activeBoard is required",
+  }),
+});
+
 const schemasJoiUser = {
   registerUserSchema,
   loginUserSchema,
   updateThemeSchema,
   updateUserSchema,
   sendHelpEmailSchema,
+  updateActivBoardSchema,
 };
 
 module.exports = {
