@@ -10,7 +10,6 @@ const updateActiveBoard = async (req, res) => {
     activeBoard,
     message: "Active board set to user.",
   });
-  //   res.json("updateActiveBoard");
 };
 
 module.exports = updateActiveBoard;
