@@ -24,7 +24,7 @@ const userSchema = new Schema(
     },
     token: String,
     avatarURL: String,
-
+    avtiveBoard: String,
     verify: {
       type: Boolean,
       default: false,
