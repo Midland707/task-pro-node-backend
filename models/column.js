@@ -8,7 +8,7 @@ const columnSchema = new Schema(
       default: "New Column",
       required: true,
     },
-    owner: {
+    columnOwner: {
       type: Schema.Types.ObjectId,
       ref: "board",
     },

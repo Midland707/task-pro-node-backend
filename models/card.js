@@ -20,7 +20,7 @@ const cardSchema = new Schema(
       type: Date,
       default: Date.now(),
     },
-    owner: {
+    cardOwner: {
       type: Schema.Types.ObjectId,
       ref: "column",
     },
