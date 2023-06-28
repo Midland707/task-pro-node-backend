@@ -890,13 +890,13 @@
             },
             "icon": {
               "type": "string",
-              "description": "Board's icon",
-              "example": "https://cloudinary.com/icon.svg"
+              "description": "ID зі спрайту - sourse/sprite.svg",
+              "example": "icon-four-circles"
             },
             "background": {
               "type": "string",
-              "description": "background URL",
-              "example": "https://cloudinary.com/background.jpeg"
+              "description": "ID з джсону з бекграундами -  sourse/bgs.json",
+              "example": "1ADApriYKw4F7"
             },
             "owner": {
               "type": "string",
@@ -1050,12 +1050,68 @@
         }
       },
       "ColumnsAndCardsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "schema": {
-              "$ref": "#/components/schemas/CardResponse"
+        "type": "object",
+        "properties": {
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Column`s id",
+                  "example": "6496f88960259996ba1250a1"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "Column title"
+                },
+                "columnOwner": {
+                  "type": "string",
+                  "description": "ColumnOwner`s id",
+                  "example": "649738732301f0d9412b3b25"
+                }
+              }
+            }
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Card`s id",
+                  "example": "6499f64aa82d48b430dafa6a"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Card's title",
+                  "example": "Card title"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Card's description",
+                  "example": "Card description"
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Card's label",
+                  "example": "medium"
+                },
+                "deadline": {
+                  "type": "string",
+                  "description": "Card's deadline",
+                  "format": "date-time",
+                  "example": "2023-06-28T00:13:53.677+00:00"
+                },
+                "cardOwner": {
+                  "type": "string",
+                  "description": "CardOwner`s id",
+                  "example": "6499ce1761db2ad559ea7462"
+                }
+              }
             }
           }
         }
