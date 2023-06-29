@@ -9,7 +9,7 @@ const cardSchema = new Schema(
     },
     description: {
       type: String,
-      default: null,
+      default: "",
     },
     label: {
       type: String,

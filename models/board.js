@@ -24,7 +24,7 @@ const boardSchema = new Schema(
     },
     background: {
       type: String,
-      default: null,
+      default: "empty",
     },
     owner: {
       type: Schema.Types.ObjectId,
