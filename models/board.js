@@ -19,8 +19,14 @@ const boardSchema = new Schema(
     },
     columns: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "column",
+        title: {
+          type: String,
+          ref: "column",
+        },
+        columnOwner: {
+          type: String,
+          ref: "column",
+        },
       },
     ],
     owner: {
