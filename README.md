@@ -14,6 +14,11 @@ To enhance the user experience further, **TaskPro** leverages cutting-edge techn
 
 Discover the power of efficient task management and collaboration with **TaskPro**. Say goodbye to scattered sticky notes, overwhelming email threads, and missed deadlines. Embrace a new era of productivity and organization with **TaskPro** – the ultimate task management application that simplifies your work, sparks creativity, and propels you towards success.
 
+You are welcome to explore and enjoy **TaskPro** here: https://katerinapilipets.github.io/team-project-TaskPro-Frontend/
+
+Front-end for **TaskPro**: https://github.com/KaterinaPilipets/team-project-TaskPro-Frontend
+Documentation for **TaskPro**: https://task-pro-backend-j82b.onrender.com/api-docs/
+
 **TaskPro** back-end leverages the following dependencies and libraries to ensure seamless functionality:
 
 - **_bcrypt_**: Version 5.1.0. This library is used for password hashing and encryption, ensuring that user credentials remain secure.
