@@ -17,6 +17,7 @@ Discover the power of efficient task management and collaboration with **TaskPro
 You are welcome to explore and enjoy **TaskPro** here: https://katerinapilipets.github.io/team-project-TaskPro-Frontend/
 
 Front-end for **TaskPro**: https://github.com/KaterinaPilipets/team-project-TaskPro-Frontend
+
 Documentation for **TaskPro**: https://task-pro-backend-j82b.onrender.com/api-docs/
 
 **TaskPro** back-end leverages the following dependencies and libraries to ensure seamless functionality:
