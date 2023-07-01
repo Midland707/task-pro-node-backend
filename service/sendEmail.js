@@ -14,12 +14,10 @@ const nodemailerConfig = {
 
 const transport = nodemailer.createTransport(nodemailerConfig);
 
-const sendEmail = async (textLetter) => {
+const sendEmail = async (data) => {
   const email = {
-    html: textLetter,
+    ...data,
     from: UKR_NET_EMAIL,
-    to: SUPPORT_EMAIL,
-    subject: "Needing technical support",
   };
   await transport.sendMail(email);
   return true;
