@@ -3,8 +3,8 @@ const { HttpError } = require("../../helpers");
 
 const updateCard = async (req, res) => {
   const { id } = req.params;
-  const { _id: owner } = req.user;
-  const result = await Card.findByIdAndUpdate({ _id: id, owner }, req.body, {
+  // const { cardOwner } = req.body;
+  const result = await Card.findByIdAndUpdate({ _id: id }, req.body, {
     new: true,
   });
   if (!result) {
