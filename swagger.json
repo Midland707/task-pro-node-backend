@@ -641,7 +641,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CardRequest"
+                "$ref": "#/components/schemas/CardUpdateRequest"
               }
             }
           }
@@ -1047,6 +1047,38 @@
           }
         }
       },
+      "CardUpdateRequest": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "Card title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Card description"
+          },
+          "label": {
+            "type": "string",
+            "description": "Card's label",
+            "example": "without"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "time deadline"
+          },
+          "cardOwner": {
+            "type": "string",
+            "description": "Card's new owner. Column ID",
+            "example": "6496f88960259996ba1250a1"
+          }
+        }
+      },
+
       "CardResponse": {
         "type": "object",
         "properties": {
@@ -1075,7 +1107,7 @@
             "description": "Card's deadline",
             "example": "time deadline"
           },
-          "owner": {
+          "cardOwner": {
             "type": "string",
             "description": "Owner`s id",
             "example": "6496f88960259996ba1250a1"
