@@ -3,9 +3,7 @@ const { Card } = require("../../models");
 const { HttpError } = require("../../helpers");
 
 const removeColumn = async (req, res) => {
-  // const { id } = req.params;
   const { id } = req.params;
-  console.log("id = ", id);
   const cards = await Card.find({ cardOwner: id });
   if (!cards) {
     throw HttpError(404, "Cards not found");

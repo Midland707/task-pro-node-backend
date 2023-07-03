@@ -474,7 +474,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Board deleted",
+            "description": "Board, him Columns and Column`s cards deleted",
             "content": {}
           },
           "401": {
@@ -574,7 +574,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Column deleted",
+            "description": "Column and him cards deleted",
             "content": {}
           },
           "401": {
