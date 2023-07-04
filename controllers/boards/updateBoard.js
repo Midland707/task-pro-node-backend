@@ -2,9 +2,16 @@ const { Board } = require("../../models");
 const { HttpError } = require("../../helpers");
 
 const updateBoard = async (req, res) => {
-  const {id}= req.params
-  const {_id: owner} = req.user
-  const result = await Board.findByIdAndUpdate({_id:id, owner}, req.body, {
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+  const { title } = req.body;
+
+  const existingBoard = await Board.findOne({ owner, title });
+  if (existingBoard) {
+    throw HttpError(404, `Board with ${title} already exist`);
+  }
+
+  const result = await Board.findByIdAndUpdate({ _id: id, owner }, req.body, {
     new: true,
   });
   if (!result) {
@@ -14,4 +21,3 @@ const updateBoard = async (req, res) => {
 };
 
 module.exports = updateBoard;
-
