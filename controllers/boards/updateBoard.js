@@ -8,7 +8,9 @@ const updateBoard = async (req, res) => {
 
   const existingBoard = await Board.findOne({ owner, title });
   if (existingBoard) {
-    throw HttpError(404, `Board with ${title} already exist`);
+    if (existingBoard._id.toString() !== id) {
+      throw HttpError(404, `Board with ${title} already exist`);
+    }
   }
 
   const result = await Board.findByIdAndUpdate({ _id: id, owner }, req.body, {
