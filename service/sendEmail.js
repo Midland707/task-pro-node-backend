@@ -3,7 +3,7 @@ require("dotenv").config();
 const { UKR_NET_EMAIL, UKR_NET_PASS, SUPPORT_EMAIL } = process.env;
 
 const nodemailerConfig = {
-  host: "smtp.ukr.net",
+  host: "smtp.gmail.com",
   port: 465,
   secure: true,
   auth: {
